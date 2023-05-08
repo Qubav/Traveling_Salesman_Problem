@@ -1,6 +1,10 @@
 from numpy import sqrt
 from random import sample
 from solution import Solution
+import numpy as np
+
+# class allows to build starting order based on Farthest Insertion method
+# method explained: https://users.cs.cf.ac.uk/C.L.Mumford/howard/FarthestInsertion.html
 
 class FIAlgorithm:
 
@@ -43,6 +47,8 @@ class FIAlgorithm:
             x2 = ae[0]
             y2 = ae[1]
             mod = sqrt(x1 * x1 + y1 * y1)
+            # if mod == 0:
+            #     mod = np.power(0.1, 100)
             reqAns = abs(x1 * y2 - y1 * x2) / mod
         
         return reqAns
@@ -55,7 +61,7 @@ class FIAlgorithm:
         return new_dist - edge_dist
 
 
-    def algorithm(self) -> None:
+    def algorithm(self, randomness = False) -> None:
         
         # variables
         order = []      # stores ids of cities in order to be visited
@@ -65,15 +71,55 @@ class FIAlgorithm:
         for id in range(len(self.solution.x)):
             included[str(id)] = False
 
-        # generates 3 random starting locations to start algorithm
-        first_3_locations = sample(range(len(self.solution.x)), 3)    
-        
-        # appending generated locations to order list and changing value in included to True
-        for loc in first_3_locations:
-            order.append(loc)
-            included[str(loc)] = True
+        if randomness is True:
+            # generates 3 random starting locations to start algorithm
+            first_3_locations = sample(range(len(self.solution.x)), 3)    
+            
+            # appending generated locations to order list and changing value in included to True
+            for loc in first_3_locations:
+                order.append(loc)
+                included[str(loc)] = True
 
-        order.append(order[0])
+            order.append(order[0])
+
+        else:
+            a_b_found = False
+            a_b_distance  = self.solution.distance_matrix.max()
+
+            for i in range(len(self.solution.x)):
+                for j in range(i + 1, len(self.solution.x)):
+                    if self.solution.distance_matrix[i, j] == a_b_distance:
+                        a_b_found = True
+                        city_a = i
+                        city_b = j
+                    
+                    if a_b_found is True:
+                        break
+                if a_b_found is True:
+                    break
+            
+            c_dist = 0
+            a_coordinates = [self.solution.x[city_a], self.solution.y[city_a]]
+            b_coordinates = [self.solution.x[city_b], self.solution.y[city_b]]
+            for i in range(len(self.solution.x) - 1):
+
+                if i == city_a or i == city_b:
+                    continue
+                
+                else:
+                    test_coordinates = [self.solution.x[i], self.solution.y[i]]
+                    if self.get_min_distance_from_edge(a_coordinates, b_coordinates, test_coordinates) > c_dist:
+                        c_dist = self.get_min_distance_from_edge(a_coordinates, b_coordinates, test_coordinates)
+                        city_c = i
+
+            order.append(city_a)
+            order.append(city_b)
+            order.append(city_c)
+            order.append(city_a)
+
+            included[str(city_a)] = True
+            included[str(city_b)] = True
+            included[str(city_c)] = True
 
         # main loop in which each od the cities will be included in order    
         for _ in range(len(self.solution.x) - 3):
