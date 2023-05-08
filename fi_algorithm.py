@@ -117,5 +117,5 @@ class FIAlgorithm:
             order.insert(place, next_to_append)
             included[str(next_to_append)] = "True"
         
-        self.solution.current_solution = order
+        self.solution.starting_order = order
 
