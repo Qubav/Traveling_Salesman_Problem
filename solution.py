@@ -8,7 +8,11 @@ class Solution:
         self.coordinates_path = data["coordinates_path"]
         self.correct_order_path = data["correct_order_path"]
         self.correct_order = []
-        self.current_solution = []
+        self.correct_order_distance = 0
+        self.final_order = []
+        self.final_distance = 0
+        self.starting_order = []
+        self.starting_distance = 0
         self.x = []
         self.y = []
 
@@ -25,6 +29,7 @@ class Solution:
 
         # appending 1st location to end of order because traveling salesman must comeback to this location
         self.correct_order.append(self.correct_order[0])
+
     
     def get_coordinates(self) -> None:
         """Function reads coordinates of subsequent locations from .txt file and updates x and y attributes with the corresponding values."""
@@ -58,21 +63,31 @@ class Solution:
 
         self.distance_matrix = distance_matrix
 
-    def get_tour_distance(self, opt: bool = False) -> int:
+    def get_tour_distance(self) -> None:
         
-        tour_distance = 0
-
         # tour distance value is calculated by adding up distance between cities that are after each other in order
-        # if opt is False calculated value is calculated based on current solution order, if opt is True tour distance value is calculated based on correct order
-        if opt is False:
-            for i in range(0, len(self.current_solution) - 1):
-                tour_distance += self.distance_matrix[self.current_solution[i], self.current_solution[i + 1]]
+        # 
+        if len(self.final_order) > 0:
+            tour_distance = 0
+            for i in range(0, len(self.final_order) - 1):
+                tour_distance += self.distance_matrix[self.final_order[i], self.final_order[i + 1]]
 
-        else:
+            self.final_distance = tour_distance
+
+        if len(self.starting_order) > 0:
+            tour_distance = 0
+            for i in range(0, len(self.starting_order) - 1):
+                tour_distance += self.distance_matrix[self.starting_order[i], self.starting_order[i + 1]]
+            
+            self.starting_distance = tour_distance
+
+        if len(self.correct_order) > 0 and self.correct_order_distance == 0:
+            tour_distance = 0
             for i in range(0, len(self.correct_order) - 1):
                 tour_distance += self.distance_matrix[self.correct_order[i], self.correct_order[i + 1]]
+            
+            self.correct_order_distance = tour_distance
        
-        return tour_distance
     
     def show_solution(self):
 
@@ -80,7 +95,7 @@ class Solution:
         plt.title("Solution")
         x = []
         y = []
-        for id in self.current_solution:
+        for id in self.starting_order:
             x.append(self.x[id])
             y.append(self.y[id])
 
