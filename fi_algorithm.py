@@ -1,7 +1,6 @@
 from numpy import sqrt
 from random import sample
 from solution import Solution
-import numpy as np
 
 # class allows to build starting order based on Farthest Insertion method
 # method explained: https://users.cs.cf.ac.uk/C.L.Mumford/howard/FarthestInsertion.html
@@ -101,7 +100,7 @@ class FIAlgorithm:
             c_dist = 0
             a_coordinates = [self.solution.x[city_a], self.solution.y[city_a]]
             b_coordinates = [self.solution.x[city_b], self.solution.y[city_b]]
-            for i in range(len(self.solution.x) - 1):
+            for i in range(len(self.solution.x)):
 
                 if i == city_a or i == city_b:
                     continue
@@ -123,6 +122,9 @@ class FIAlgorithm:
 
         # main loop in which each od the cities will be included in order    
         for _ in range(len(self.solution.x) - 3):
+
+            # max_val is set to 0 so first higher value will take its place and will be value that is compared to other results
+            # max_val is highest value that was received while checking distances between cities
             max_val = 0
 
             # looping through all combinations of pair of city included and city not included to find not included city with highest distance value to one od included cities
@@ -145,11 +147,14 @@ class FIAlgorithm:
                 p = [self.solution.x[next_to_append], self.solution.y[next_to_append]]
                 d = self.get_min_distance_from_edge(a, b, p)
 
+                # if distance between city to be added next is lower to different edge it is updated
                 if d < shortest_distance:
                     shortest_distance = d
                     p_1 = (order[i], order[i + 1], next_to_append)
                     place = i + 1
                 
+                # if distance between city to be added next is equal to different edge it is compared byt calculating distance change if it would be added in order between 2 edge-defining cities
+                # city will be added between those 2 cities so tour distance change value is lower
                 elif d == shortest_distance:
                     p_2 = (order[i], order[i + 1], next_to_append)
                     place_2 = i + 1
@@ -160,8 +165,9 @@ class FIAlgorithm:
                     if dist_change_1 > dist_change_2:
                         place = place_2
 
+            # inserting next to be added city to order and changing value for its id in included dict to True
             order.insert(place, next_to_append)
-            included[str(next_to_append)] = "True"
+            included[str(next_to_append)] = True
         
         self.solution.starting_order = order
 

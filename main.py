@@ -18,10 +18,7 @@ if __name__ == "__main__":
     print(fi_alg.solution.y)
     fi_alg.algorithm()
     sol1.show_solution()
-    print(sol1.get_tour_distance())
-
-
-    # print(len(sol1.correct_order), len(sol1.x), len(sol1.y))
-    # print(sol1.distance_matrix)
-    # print(sol1.correct_order)
-    # print(sol1.get_tour_distance(True))
+    sol1.get_tour_distance()
+    print(sol1.correct_order_distance)
+    print(sol1.starting_distance)
+    print(sol1.starting_distance / sol1.correct_order_distance * 100 - 100)
