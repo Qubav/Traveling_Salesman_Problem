@@ -9,9 +9,10 @@ class FIAlgorithm:
 
     def __init__(self, solution: Solution) -> None:
         self.solution = solution
+        self.algorithm(randomness = True)
     
     def get_min_distance_from_edge(self, a: list, b: list, e: list) -> float:
-        """Function returns value of closest distance from point e to edge between points a and b."""
+        """Method returns value of closest distance from point e to edge between points a and b."""
 
         ab = [None, None]
         ab[0] = b[0] - a[0]
@@ -53,7 +54,7 @@ class FIAlgorithm:
         return reqAns
 
     def calculate_distance_change(self, a: int, b: int, p: int) -> int:
-        """Function returns value of subtraction edge between cities a-b distance from combined value of edges between cities a-p and p-b."""
+        """Method returns value of subtraction edge between cities a-b distance from combined value of edges between cities a-p and p-b."""
         edge_dist = self.solution.get_distance(a, b)
         new_dist = self.solution.get_distance(a, p) + self.solution.get_distance(p, b)
 
@@ -170,4 +171,5 @@ class FIAlgorithm:
             included[str(next_to_append)] = True
         
         self.solution.starting_order = order
+        self.solution.get_tour_distance()
 

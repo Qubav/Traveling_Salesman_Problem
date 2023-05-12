@@ -5,20 +5,30 @@ from matplotlib import pyplot as plt
 class Solution:
 
     def __init__(self, data: dict) -> None:
+
+        # attributes that stores paths to data
         self.coordinates_path = data["coordinates_path"]
         self.correct_order_path = data["correct_order_path"]
+
+        # attributes that stores cities order and tours distance
         self.correct_order = []
         self.correct_order_distance = 0
         self.final_order = []
         self.final_distance = 0
         self.starting_order = []
         self.starting_distance = 0
+
+        # coordinates of cities in ids order
         self.x = []
         self.y = []
 
+        self.get_correct_order()
+        self.get_coordinates()
+        self.get_distance_matrix()
+
     
     def get_correct_order(self) -> None:
-        """Function reads correct locations order from .txt file and updates attribute correct_order with ids of next in order location."""
+        """Method reads correct locations order from .txt file and updates attribute correct_order with ids of next in order location."""
 
         with open(self.correct_order_path, "r") as file:
             order = file.read().splitlines()
@@ -32,7 +42,7 @@ class Solution:
 
     
     def get_coordinates(self) -> None:
-        """Function reads coordinates of subsequent locations from .txt file and updates x and y attributes with the corresponding values."""
+        """Method reads coordinates of subsequent locations from .txt file and updates x and y attributes with the corresponding values."""
 
         with open(self.coordinates_path, "r") as file:
             coordinates = file.read().splitlines()
@@ -45,14 +55,14 @@ class Solution:
             self.y.append(float(temp[2]))
 
     def get_distance(self, id1: int, id2: int) -> int:
-        """Function returns value of distance in between locations with ids id1 and id2."""
+        """Method returns value of distance in between locations with ids id1 and id2."""
 
         return int(0.5 + sqrt(power((self.x[id1] - self.x[id2]), 2) + power((self.y[id1] - self.y[id2]), 2)))
 
     def get_distance_matrix(self) -> None:
-        """Function creates matrix with values of distance between each city is database based on coordinates from x and y attributes."""
+        """Method creates matrix with values of distance between each city is database based on coordinates from x and y attributes."""
 
-        # creating matrix
+        # creating matrix that will store values of distance from city to city
         n = len(self.x)
         distance_matrix = np.zeros((n, n), int)
 
@@ -66,7 +76,6 @@ class Solution:
     def get_tour_distance(self) -> None:
         
         # tour distance value is calculated by adding up distance between cities that are after each other in order
-        # 
         if len(self.final_order) > 0:
             tour_distance = 0
             for i in range(0, len(self.final_order) - 1):
@@ -91,13 +100,58 @@ class Solution:
     
     def show_solution(self):
 
-        plt.figure()
-        plt.title("Solution")
-        x = []
-        y = []
-        for id in self.starting_order:
-            x.append(self.x[id])
-            y.append(self.y[id])
+        fig, axs = plt.subplots(nrows=3, ncols=1, figsize=(6, 9))
+        plt.subplots_adjust(top=0.959,bottom=0.065,left=0.132,right=0.975,hspace=0.376,wspace=0.225)
 
-        plt.plot(x, y, "o-k", linewidth = 1.5, markersize = 3.0)
+        axs[0].set_title("Optimal solution")
+        axs[0].set_xlabel("x coordinates")
+        axs[0].set_ylabel("y coordinates")
+
+        x_0 = []
+        y_0 = []
+
+        for id in self.correct_order:
+            x_0.append(self.x[id])
+            y_0.append(self.y[id])
+
+        axs[0].plot(x_0, y_0, "o-", linewidth = 1.5, markersize = 3.0, color = "royalblue")
+
+        axs[1].set_title("FI algorithm solution")
+        axs[1].set_xlabel("x coordinates")
+        axs[1].set_ylabel("y coordinates")
+
+        x_1 = []
+        y_1 = []
+
+        for id in self.starting_order:
+            x_1.append(self.x[id])
+            y_1.append(self.y[id])
+
+        axs[1].plot(x_1, y_1, "o-", linewidth = 1.5, markersize = 3.0, color = "darkorange")
+
+        axs[2].set_title("Tabu Search algorithm solution")
+        axs[2].set_xlabel("x coordinates")
+        axs[2].set_ylabel("y coordinates")
+
+        x_2 = []
+        y_2 = []
+
+        for id in self.final_order:
+            x_2.append(self.x[id])
+            y_2.append(self.y[id])
+
+        axs[2].plot(x_2, y_2, "o-", linewidth = 1.5, markersize = 3.0, color = "limegreen")
+
         plt.show()
+
+    def print_values(self):
+
+        print(f"Correct order distance value is: {self.correct_order_distance}")
+        print(f"FI algorithm order distance value is: {self.starting_distance}")
+        print(f"Tabu Search algorithm distance value is: {self.final_distance}")
+        fi_c_diff = (self.starting_distance / self.correct_order_distance - 1) * 100
+        ts_c_diff = (self.final_distance / self.correct_order_distance - 1) * 100
+        ts_fi_diff = (self.starting_distance / self.final_distance - 1) * 100
+        print(f"The difference between the lengths of the correct order and FI algorithm order is: {fi_c_diff} %")
+        print(f"The difference between the lengths of the correct order and Tabu Search algorithm order is: {ts_c_diff} %")
+        print(f"The difference between the lengths of the FI algorithm order and Tabu Search algorithm order is: {ts_fi_diff} %")

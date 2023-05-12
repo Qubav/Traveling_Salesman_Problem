@@ -20,6 +20,8 @@ class TabuSearch:
         # attributes to store values of other attributes over algorithm iterations
         self.current_solution_distance_change_list = []
         self.best_solution_distance_change_list = []
+
+        self.tabu_search_algorithm()
         
 
     def distance_change(self, id_1: int, id_2: int, id_3: int, id_4: int) -> int:
@@ -133,7 +135,7 @@ class TabuSearch:
         self.solution.final_distance = self.best_solution_distance
 
     def plot_distance_values_change(self):
-        """Function shows graph of change of the values of attributes best_solution_distance and current_solution_distance over iterations."""
+        """Method shows graph of change of the values of attributes best_solution_distance and current_solution_distance over iterations."""
 
         plt.figure()
         plt.title("Change of values over the iteration")

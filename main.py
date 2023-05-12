@@ -1,24 +1,34 @@
 from solution import Solution
 from fi_algorithm import FIAlgorithm
+from tabu_search import TabuSearch
 
+TABU_TENURE = 16
+ITERATIONS = 1200
 
-if __name__ == "__main__":
-
-    problem_data = {
+BERLIN = {
         "coordinates_path": "berlin52.txt",
         "correct_order_path": "berlin52.opt.tour.txt"
     }
 
-    sol1 = Solution(problem_data)
-    sol1.get_correct_order()
-    sol1.get_coordinates()
-    sol1.get_distance_matrix()
+ATT = {
+        "coordinates_path": "att48.txt",
+        "correct_order_path": "att48.opt.txt"
+    }
 
+EIL = {
+        "coordinates_path": "eil101.txt",
+        "correct_order_path": "eil101.opt.txt"
+    }
+
+
+if __name__ == "__main__":
+
+    sol1 = Solution(BERLIN)
     fi_alg = FIAlgorithm(sol1)
-    print(fi_alg.solution.y)
-    fi_alg.algorithm()
+    tabu_search = TabuSearch(sol1, TABU_TENURE, ITERATIONS)
+    tabu_search.plot_distance_values_change()
     sol1.show_solution()
-    sol1.get_tour_distance()
-    print(sol1.correct_order_distance)
-    print(sol1.starting_distance)
-    print(sol1.starting_distance / sol1.correct_order_distance * 100 - 100)
+    sol1.print_values()
+
+    
+        
