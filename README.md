@@ -8,3 +8,14 @@ Program:
 - allows user to plot graphs showing course of routes for optimal solution, initial solution created with FI algorithm and final solution created with TS algorithm,
 - print each solution values - total tour distance
 
+# Demo for Berlin52 dataset:
+Correct order distance value is: 7542
+FI algorithm order distance value is: 8402
+Tabu Search algorithm distance value is: 7542
+The difference between the lengths of the correct order and FI algorithm order is: 11.402810925483964 %
+The difference between the lengths of the correct order and Tabu Search algorithm order is: 0.0 %
+The difference between the lengths of the FI algorithm order and Tabu Search algorithm order is: 11.402810925483964 %
+\Routs graphs:\
+![Figure_1](https://github.com/Qubav/Traveling_Salesman_Problem/assets/124883831/d8dc9a97-7327-4e35-b30d-5c9464430922)\
+Attributes change diruing Tabu Search - algorithm current solution distance and best solution distance change:\
+![Figure_2](https://github.com/Qubav/Traveling_Salesman_Problem/assets/124883831/9d7cab7d-260d-487a-b1d4-34b660b250a9)
