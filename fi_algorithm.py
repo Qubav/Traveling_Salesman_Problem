@@ -9,6 +9,8 @@ class FIAlgorithm:
 
     def __init__(self, solution: Solution) -> None:
         self.solution = solution
+
+        # executing method
         self.algorithm(randomness = True)
     
     def get_min_distance_from_edge(self, a: list, b: list, e: list) -> float:

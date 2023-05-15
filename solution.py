@@ -22,6 +22,7 @@ class Solution:
         self.x = []
         self.y = []
 
+        # executing methods
         self.get_correct_order()
         self.get_coordinates()
         self.get_distance_matrix()
@@ -74,6 +75,7 @@ class Solution:
         self.distance_matrix = distance_matrix
 
     def get_tour_distance(self) -> None:
+        """Method updates attributes that stores tours distances."""
         
         # tour distance value is calculated by adding up distance between cities that are after each other in order
         if len(self.final_order) > 0:
@@ -99,6 +101,7 @@ class Solution:
        
     
     def show_solution(self):
+        """Method plots graphs with tours for correct solution, FI algorithm solution and Tabu Search algorithm solution."""
 
         fig, axs = plt.subplots(nrows=3, ncols=1, figsize=(6, 9))
         plt.subplots_adjust(top=0.959,bottom=0.065,left=0.132,right=0.975,hspace=0.376,wspace=0.225)
@@ -145,6 +148,7 @@ class Solution:
         plt.show()
 
     def print_values(self):
+        """Method prints values of distances of orders: correct, FI algorithm and Tabu Search algorithm."""
 
         print(f"Correct order distance value is: {self.correct_order_distance}")
         print(f"FI algorithm order distance value is: {self.starting_distance}")

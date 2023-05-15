@@ -21,6 +21,7 @@ class TabuSearch:
         self.current_solution_distance_change_list = []
         self.best_solution_distance_change_list = []
 
+        # executing method
         self.tabu_search_algorithm()
         
 
