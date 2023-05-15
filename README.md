@@ -15,7 +15,7 @@ Values of distances for correct cities order and order determined by FI and TS a
 - Tabu Search algorithm distance value is: 7542
 - The difference between the lengths of the correct order and FI algorithm order is: 11.402810925483964 %
 - The difference between the lengths of the correct order and Tabu Search algorithm order is: 0.0 %
-- The difference between the lengths of the FI algorithm order and Tabu Search algorithm order is: 11.402810925483964 %\
+- The difference between the lengths of the FI algorithm order and Tabu Search algorithm order is: 11.402810925483964 %
 
 Route graphs:\
 ![Figure_1](https://github.com/Qubav/Traveling_Salesman_Problem/assets/124883831/d8dc9a97-7327-4e35-b30d-5c9464430922)
