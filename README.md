@@ -9,12 +9,13 @@ Program:
 - print each solution values - total tour distance
 
 # Demo for Berlin52 dataset:
-Correct order distance value is: 7542
-FI algorithm order distance value is: 8402
-Tabu Search algorithm distance value is: 7542
-The difference between the lengths of the correct order and FI algorithm order is: 11.402810925483964 %
-The difference between the lengths of the correct order and Tabu Search algorithm order is: 0.0 %
-The difference between the lengths of the FI algorithm order and Tabu Search algorithm order is: 11.402810925483964 %
+Values of distances for correct cities order and order determined by FI and TS algorithms:
+- Correct order distance value is: 7542
+- FI algorithm order distance value is: 8402
+- Tabu Search algorithm distance value is: 7542
+- The difference between the lengths of the correct order and FI algorithm order is: 11.402810925483964 %
+- The difference between the lengths of the correct order and Tabu Search algorithm order is: 0.0 %
+- The difference between the lengths of the FI algorithm order and Tabu Search algorithm order is: 11.402810925483964 %
 \Routs graphs:\
 ![Figure_1](https://github.com/Qubav/Traveling_Salesman_Problem/assets/124883831/d8dc9a97-7327-4e35-b30d-5c9464430922)\
 Attributes change diruing Tabu Search - algorithm current solution distance and best solution distance change:\
