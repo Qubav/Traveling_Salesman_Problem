@@ -21,5 +21,5 @@ Values of distances for correct cities order and order determined by FI and TS a
 Route graphs:\
 ![Figure_1](https://github.com/Qubav/Traveling_Salesman_Problem/assets/124883831/d8dc9a97-7327-4e35-b30d-5c9464430922)
 
-Attributes change diruing Tabu Search - algorithm current solution distance and best solution distance change over algorithm's iteration:\
+Attributes change during Tabu Search - algorithm current solution distance and best solution distance change over algorithm's iteration:\
 ![Figure_2](https://github.com/Qubav/Traveling_Salesman_Problem/assets/124883831/9d7cab7d-260d-487a-b1d4-34b660b250a9)
